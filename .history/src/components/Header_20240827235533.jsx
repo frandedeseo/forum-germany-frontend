@@ -47,6 +47,7 @@ const Header = () => {
                   Inteligencia Artificial
                 </p>
               </a>
+              {/* <SearchBar /> */}
             </div>
           </div>
 

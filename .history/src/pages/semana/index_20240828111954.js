@@ -79,7 +79,6 @@ export default function Week() {
     setError(null);
     try {
       const fullItem = await fetchItemData(nr);
-      console.log("Full item data:", fullItem);
       if (fullItem == "Item not found") {
         setError("Item not found");
       } else {
@@ -134,7 +133,7 @@ export default function Week() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
-      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} setError={setError} />
+      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} />
       <Container maxWidth="xl">
         <Grid container spacing={2} sx={{ height: "100vh", pt: 10 }}>
           <Grid item xs={12} md={5}>

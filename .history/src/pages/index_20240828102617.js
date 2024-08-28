@@ -5,6 +5,25 @@ import { data } from "@/data/data";
 import Header from "@/components/Header";
 
 export default function Home() {
+  const extractData = (all_data) => {
+    return all_data.map(({ bucket_name, folders, nr, subject, tags, content_snipet }) => ({
+      bucket_name,
+      folders,
+      nr,
+      subject,
+      tags,
+      content_snipet,
+    }));
+  };
+
+  useEffect(() => {
+    if (data?.result?.feed) {
+      console.log("executing");
+      const json = extractData(data.result.feed);
+      console.log(JSON.stringify(json));
+    }
+  }, [data]);
+
   return (
     <div className="bg-cover bg-center h-screen">
       <div className="relative h-full">

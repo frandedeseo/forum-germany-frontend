@@ -27,7 +27,7 @@ const Comment = ({ data, depth }) => {
     <Box sx={{ ml: depth * 2, mb: 2, width: `calc(100% - ${depth * 16}px)` }}>
       <Card variant="outlined">
         <CardContent>
-          <Typography variant="h6" gutterBottom dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(subject || "") }} />
+          <Typography variant="h2" gutterBottom dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(subject || "") }} />
 
           <Typography variant="caption" display="block" gutterBottom>
             Posted on: {new Date(latestHistory.created).toLocaleString()}

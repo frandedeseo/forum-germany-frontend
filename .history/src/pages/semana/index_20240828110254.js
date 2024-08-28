@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import DOMPurify from "dompurify";
 import { Search } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
-import NestedPostViewerError from "@/components/NestedPostViewerError";
 
 const darkTheme = createTheme({
   palette: {
@@ -51,7 +50,7 @@ const fetchItemData = async (nr) => {
   const response = await fetch(`http://localhost:5000/post/${nr}`);
   if (!response.ok) {
     if (response.status === 404) {
-      return "Item not found";
+      throw new Error("Post not Found");
     }
     throw new Error("Error fetching data");
   }
@@ -79,15 +78,10 @@ export default function Week() {
     setError(null);
     try {
       const fullItem = await fetchItemData(nr);
-      console.log("Full item data:", fullItem);
-      if (fullItem == "Item not found") {
-        setError("Item not found");
-      } else {
-        setSelectedItem(fullItem);
-      }
+      setSelectedItem(fullItem);
     } catch (error) {
       console.error("Error fetching item data:", error);
-      setError(error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -134,7 +128,7 @@ export default function Week() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
-      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} setError={setError} />
+      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} />
       <Container maxWidth="xl">
         <Grid container spacing={2} sx={{ height: "100vh", pt: 10 }}>
           <Grid item xs={12} md={5}>
@@ -208,11 +202,13 @@ export default function Week() {
                   <CircularProgress />
                 </Box>
               ) : error ? (
-                <NestedPostViewerError error={"No se ha encontrado un posteo con ese ID"} />
+                <Typography variant="h6" color="error" align="center">
+                  {error}
+                </Typography>
               ) : selectedItem ? (
                 <NestedPostViewer selectedItem={selectedItem} />
               ) : (
-                <NestedPostViewerError error={"No se ha encontrado un posteo con ese ID"} />
+                <Typography variant="body1"></Typography>
               )}
             </Box>
           </Grid>

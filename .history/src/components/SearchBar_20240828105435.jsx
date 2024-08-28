@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
 
-export default function SearchBar({ fetchItemData, setSelectedItem, setError }) {
+export default function SearchBar({ fetchItemData, setSelectedItem }) {
   const [searchValue, setSearchValue] = useState("");
 
   const handleInputChange = (event) => {
@@ -17,11 +17,7 @@ export default function SearchBar({ fetchItemData, setSelectedItem, setError }) 
   const handleSearch = async () => {
     console.log("Searching for item with ID:", searchValue);
     const data = await fetchItemData(searchValue);
-    if (data == "Item not found") {
-      setError("Item not found");
-    } else {
-      setSelectedItem(data);
-    }
+    setSelectedItem(data);
     setSearchValue("");
   };
 
@@ -33,15 +29,15 @@ export default function SearchBar({ fetchItemData, setSelectedItem, setError }) 
   };
 
   return (
-    <div className="fixed top-2 right-4" style={{ zIndex: 20000 }}>
+    <div className="fixed top-2 right-4" style={{ zIndex: 60 }}>
       <div
-        style={{ zIndex: 20000 }}
+        style={{ zIndex: 60 }}
         className="flex items-center space-x-2 bg-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
       >
         <Label htmlFor="id-search" className="text-sm font-medium text-gray-200 mr-2">
           ID
         </Label>
-        <div className="relative" style={{ zIndex: 20000 }}>
+        <div className="relative" style={{ zIndex: 60 }}>
           <Input
             type="text"
             id="id-search"
@@ -49,7 +45,7 @@ export default function SearchBar({ fetchItemData, setSelectedItem, setError }) 
             value={searchValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            style={{ zIndex: 20000 }}
+            style={{ zIndex: 60 }}
             className="w-40 bg-gray-700 text-white placeholder-gray-400 border-none rounded-full pr-10 focus:ring-0 focus:outline-none transition-all duration-300 focus:w-48"
           />
           <Search

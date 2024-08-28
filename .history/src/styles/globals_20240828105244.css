@@ -16,7 +16,7 @@
   .navbar {
     display: flex;
     align-items: center;
-    
+    z-index: 1000000000;
     padding: 10px 20px;
     position: fixed;
     height: 50px;
@@ -25,7 +25,6 @@
   }
   
   .navbar.open {
-    z-index: 1000000000;
     height: 38vh;
     position: fixed;
      background-color: rgba(0, 0, 0, 0.7); 

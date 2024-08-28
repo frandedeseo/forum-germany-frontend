@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
 
-export default function SearchBar({ fetchItemData, setSelectedItem, setError }) {
+export default function SearchBar({ fetchItemData, setSelectedItem }) {
   const [searchValue, setSearchValue] = useState("");
 
   const handleInputChange = (event) => {
@@ -14,22 +14,9 @@ export default function SearchBar({ fetchItemData, setSelectedItem, setError }) 
     }
   };
 
-  const handleSearch = async () => {
-    console.log("Searching for item with ID:", searchValue);
-    const data = await fetchItemData(searchValue);
-    if (data == "Item not found") {
-      setError("Item not found");
-    } else {
-      setSelectedItem(data);
-    }
-    setSearchValue("");
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-      event.target.blur(); // Remove focus from the input field
-    }
+  const handleSearch = () => {
+    data = fetchItemData(searchValue);
+    setSelectedItem(data);
   };
 
   return (
@@ -47,15 +34,12 @@ export default function SearchBar({ fetchItemData, setSelectedItem, setError }) 
             id="id-search"
             placeholder="Enter ID"
             value={searchValue}
+            onSumbit={handleSearch}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
             style={{ zIndex: 20000 }}
-            className="w-40 bg-gray-700 text-white placeholder-gray-400 border-none rounded-full pr-10 focus:ring-0 focus:outline-none transition-all duration-300 focus:w-48"
+            className=" w-40 bg-gray-700 text-white placeholder-gray-400 border-none rounded-full pr-10 focus:ring-0 focus:outline-none transition-all duration-300 focus:w-48"
           />
-          <Search
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 cursor-pointer"
-            onClick={handleSearch} // Execute search on click
-          />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
         </div>
       </div>
     </div>

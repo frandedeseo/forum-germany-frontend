@@ -54,7 +54,9 @@ export default function NestedPostViewer({ selectedItem }) {
         <Container maxWidth="lg">
           <Card sx={{ mb: 4 }}>
             <CardContent>
-              <Typography variant="h4" gutterBottom dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedItem.history[0].subject) }} />
+              <Typography variant="h4" gutterBottom>
+                {selectedItem.history[0].subject}
+              </Typography>
               <Box sx={{ mb: 2 }}>
                 {selectedItem.tags.map((tag, index) => (
                   <Chip key={index} label={tag} size="small" color="primary" sx={{ mr: 1, mb: 1 }} />

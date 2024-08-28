@@ -134,7 +134,7 @@ export default function Week() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
-      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} setError={setError} />
+      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} />
       <Container maxWidth="xl">
         <Grid container spacing={2} sx={{ height: "100vh", pt: 10 }}>
           <Grid item xs={12} md={5}>

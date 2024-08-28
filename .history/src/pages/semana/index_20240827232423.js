@@ -8,9 +8,6 @@ import NestedPostViewer from "@/components/NestedPostViewer";
 import { week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15 } from "@/data/data";
 import { useRouter } from "next/router";
 import DOMPurify from "dompurify";
-import { Search } from "lucide-react";
-import SearchBar from "@/components/SearchBar";
-import NestedPostViewerError from "@/components/NestedPostViewerError";
 
 const darkTheme = createTheme({
   palette: {
@@ -49,22 +46,14 @@ function replaceRedirectUrls(obj) {
 
 const fetchItemData = async (nr) => {
   const response = await fetch(`http://localhost:5000/post/${nr}`);
-  if (!response.ok) {
-    if (response.status === 404) {
-      return "Item not found";
-    }
-    throw new Error("Error fetching data");
-  }
   const data = await response.json();
   return replaceRedirectUrls(data);
 };
-
 export default function Week() {
   const router = useRouter();
   const { weekNumber } = router.query; // Get week number from URL
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
@@ -76,23 +65,15 @@ export default function Week() {
 
   const handleItemClick = async (nr) => {
     setLoading(true);
-    setError(null);
     try {
       const fullItem = await fetchItemData(nr);
-      console.log("Full item data:", fullItem);
-      if (fullItem == "Item not found") {
-        setError("Item not found");
-      } else {
-        setSelectedItem(fullItem);
-      }
+      setSelectedItem(fullItem);
     } catch (error) {
       console.error("Error fetching item data:", error);
-      setError(error);
     } finally {
       setLoading(false);
     }
   };
-
   const getWeekData = (weekNumber) => {
     switch (parseInt(weekNumber)) {
       case 1:
@@ -134,7 +115,6 @@ export default function Week() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
-      <SearchBar fetchItemData={fetchItemData} setSelectedItem={setSelectedItem} setError={setError} />
       <Container maxWidth="xl">
         <Grid container spacing={2} sx={{ height: "100vh", pt: 10 }}>
           <Grid item xs={12} md={5}>
@@ -207,12 +187,10 @@ export default function Week() {
                 <Box display="flex" justifyContent="center" alignItems="center" height="40vh">
                   <CircularProgress />
                 </Box>
-              ) : error ? (
-                <NestedPostViewerError error={"No se ha encontrado un posteo con ese ID"} />
               ) : selectedItem ? (
                 <NestedPostViewer selectedItem={selectedItem} />
               ) : (
-                <NestedPostViewerError error={"No se ha encontrado un posteo con ese ID"} />
+                <Typography variant="body1"></Typography>
               )}
             </Box>
           </Grid>
