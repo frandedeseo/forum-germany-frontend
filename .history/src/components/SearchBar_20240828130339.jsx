@@ -21,7 +21,7 @@ export default function SearchBar({ fetchItemData, setSelectedItem, setError }) 
       setError("Item not found");
     } else {
       setSelectedItem(data);
-      setError(null);
+      setError("");
     }
     setSearchValue("");
   };

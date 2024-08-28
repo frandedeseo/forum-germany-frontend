@@ -6,7 +6,7 @@ const NavbarTop = ({ content }) => {
   return (
     <Grid container spacing={8} justifyContent="space-between">
       {content.map((item, index) => (
-        <NavbarElementTop item={item} key={`${index}`} />
+        <NavbarElementTop item={item} />
       ))}
     </Grid>
   );

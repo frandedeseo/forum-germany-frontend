@@ -47,7 +47,7 @@ const Header = () => {
                 >
                   Inteligencia Artificial
                 </p>
-              </Link>
+              </a>
             </div>
           </div>
 
