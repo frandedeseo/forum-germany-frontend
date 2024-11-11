@@ -48,7 +48,7 @@ function replaceRedirectUrls(obj) {
 }
 
 const fetchItemData = async (nr) => {
-  const response = await fetch(`https://forum-germany-backend.vercel.app/post/${nr}`);
+  const response = await fetch(`https://forum-germany-backend-six.vercel.app/post/${nr}`);
   if (!response.ok) {
     if (response.status === 404) {
       return "Item not found";
